@@ -1,0 +1,95 @@
+body {
+  margin: 0;
+  font-family: 'Noto Serif JP', serif;
+  background-color: #F5F3EE;
+}
+
+header {
+  background-color: rgb(15, 28, 46);
+  padding: 1rem 2rem;
+  position: fixed;
+  height: 75px;
+  width: 100vw;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: #F5F3EE;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.header-menu a {
+  color: #F5F3EE;
+  text-decoration: none;
+  margin-left: 2rem;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.header-menu a:hover {
+  color: #C99843;
+}
+
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  margin-top: 75px;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition:
+    opacity 1.5s ease-in-out,
+    transform 8s ease-in-out;
+  z-index: 0;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 8s ease-in-out;
+}
+
+.slide.active img {
+  transform: scale(1.25);
+}
+
+.caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #F5F3EE;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.7),
+    0 0 5px rgba(255, 255, 255, 0.3);
+}
