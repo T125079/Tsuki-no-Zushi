@@ -486,12 +486,13 @@ footer p {
 }
 
 @media (max-width: 767px) {
-  .header-menu {
-    display: flex;
-  }
 
   .hamburger {
     display: flex;
+  }
+
+  .header-menu {
+    display: none;
   }
 }
 
