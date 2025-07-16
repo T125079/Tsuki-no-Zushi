@@ -486,19 +486,20 @@ footer p {
 }
 
 @media (max-width: 767px) {
-  .header-menu {
-    display: none;
+
+  .openbtn {
+    display: flex;
   }
 
-  .hamburger {
-    display: flex;
+  .header-menu {
+    display: none;
   }
 }
 
 /* PC以上: ハンバーガー非表示、ヘッダーメニュー表示 */
 @media (min-width: 768px) {
-  .hamburger {
-    display: flex;
+  .openbtn {
+    display: none;
   }
 
   .header-menu {
