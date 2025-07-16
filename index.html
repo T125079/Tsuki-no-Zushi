@@ -7,35 +7,124 @@
     <title>銀座 築乃鮨｜ホーム</title>
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <script src="js/script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="js/slideshow.js" defer></script>
+    <script src="js/load.js" defer></script>
+    <script src="js/activemenu.js" defer></script>
+    <script src="js/menu.js" defer></script>
+    <script src="js/han.js" defer></script>
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">銀座 築乃鮨</div>
-            <nav class="header-menu">
-                <a href="#">お品書き</a>
-                <a href="#">店舗情報</a>
-                <a href="#">ご予約</a>
-                <a href="#">お問い合わせ</a>
-            </nav>
+    <div id="loader">
+        <h1>銀座 築乃鮨</h1>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
-    </header>
-    <div class="slideshow">
-        <div class="slide">
-            <img src="img/slide1.jpg" alt="寿司1">
-            <div class="caption">職人の技が光る味わい。</div>
-        </div>
-        <div class="slide">
-            <img src="img/slide2.jpg" alt="寿司2">
-            <div class="caption">至高の一貫、ここにあり。</div>
-        </div>
+        <div class="percent" id="percent">0%</div>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id="overlay-slide"></div>
+    <div id="main-content" style="display: none;">
+        <header>
+            <div class="container">
+                <div class="logo">銀座 築乃鮨</div>
+                <nav class="header-menu">
+                    <a href="#top">トップ</a>
+                    <a href="#menu">お品書き</a>
+                    <a href="#commitment">こだわり</a>
+                    <a href="#access">アクセス</a>
+                    <a href="#news">新着情報</a>
+                    <a href="#contact">ご予約・お問い合わせ</a>
+                </nav>
+            </div>
 
+
+        </header>
+        <div class="openbtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="han-menu" id="han-menu">
+            <a href="#top">トップ</a>
+            <a href="#menu">お品書き</a>
+            <a href="#commitment">こだわり</a>
+            <a href="#access">アクセス</a>
+            <a href="#news">新着情報</a>
+            <a href="#contact">ご予約・お問い合わせ</a>
+        </nav>
+
+        <div class="slideshow">
+            <div class="slide">
+                <img src="img/slide1.jpg" alt="寿司1">
+                <div class="caption">職人の技が光る味わい。</div>
+            </div>
+            <div class="slide">
+                <img src="img/slide2.jpg" alt="寿司2">
+                <div class="caption">至高の一貫、ここにあり。</div>
+            </div>
+        </div>
+        <section id="top">
+            <div class="main-container">
+                <h1>繊細な技と<br>季節の恵みが<br>織りなす、<br>極上の味わい</h1>
+                <p>銀座 築乃鮨では、旬の素材を活かし、職人が一貫一貫丁寧に握る本格江戸前寿司をご提供いたします。<br>
+                    目の前で繰り広げられる技と素材の調和をじっくりと味わいながら、ゆったりとした時間をお過ごしください。<br>
+                    伝統と革新が息づく、銀座の落ち着いた空間で、心に残る鮨のひとときをお届けします。</p>
+            </div>
+        </section>
+        <div class="bg1"></div>
+        <section id="menu">
+            <div class="main-container">
+                <h1>お品書き</h1>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="okonomi">お好み</button>
+                    <button class="tab-btn" data-tab="set">セット</button>
+                    <button class="tab-btn" data-tab="other">その他</button>
+                    <button class="tab-btn" data-tab="delivery">出前</button>
+                </div>
+                <p id="menu-description" class="menu-desc"></p>
+
+                <div id="menu-container" class="menu-grid"></div>
+                <div id="popup" class="popup hidden">
+                    <div class="popup-content" id="popup-content">
+                        <button id="close-popup" class="close-button">✕</button>
+                        <img id="popup-img" src="" alt="">
+                        <h2 id="popup-name"></h2>
+                        <p id="popup-price"></p>
+                        <p id="popup-description"></p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section id="commitment">
+            <div class="main-container">
+                <h1>こだわり</h1>
+            </div>
+        </section>
+        <div class="bg2"></div>
+        <section id="access">
+            <div class="main-container">
+                <h1>アクセス</h1>
+            </div>
+        </section>
+        <section id="news">
+            <div class="main-container">
+                <h1>新着情報</h1>
+            </div>
+        </section>
+        <section id="contact">
+            <div class="main-container">
+                <h1>ご予約・お問い合わせ</h1>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy;tsukinozushi</p>
+        </footer>
+    </div>
 </body>
 
 </html>
