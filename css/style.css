@@ -195,7 +195,7 @@ header {
   padding: 2rem;
   gap: 2rem;
   transition: left 0.35s ease;
-  z-index: 99999;
+  z-index: 999;
 }
 
 .han-menu a {
@@ -395,7 +395,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1200;
   backdrop-filter: blur(4px);
 }
 
