@@ -1,4 +1,3 @@
-
 const imageBasePaths = {
     okonomi: "img/menu/okonomi/",
     set: "img/menu/set/",
@@ -51,7 +50,7 @@ const menuData = {
     ],
     delivery: [
         { name: "雅", price: "6500～", image: "miyabi.png", description: "赤身、鯛、ハマチ、エビ、カニ、ホッキ貝、ホタテ、穴子、サーモン、イクラ、イカ、ウニを含む豪華なセット。<br>価格：２人前 ￥6500　３人前 ￥9500　４人前 ￥12000　５人前 ￥15000" },
-        { name: "旬彩", price: "5500～", image: "shunsai.png", description: "玉子、ネギトロ、イカ、イクラ、赤身、サーモン、アジ、ホタテ、タコ、サバ、ホッキ貝、穴子のセット。<br>価格：２人前 ￥5500　３人前 ￥8200　４人前 ￥10800　５人前 ￥13500"},
+        { name: "旬彩", price: "5500～", image: "shunsai.png", description: "玉子、ネギトロ、イカ、イクラ、赤身、サーモン、アジ、ホタテ、タコ、サバ、ホッキ貝、穴子のセット。<br>価格：２人前 ￥5500　３人前 ￥8200　４人前 ￥10800　５人前 ￥13500" },
     ]
 };
 
@@ -63,6 +62,7 @@ const tabDescriptions = {
 };
 
 const container = document.getElementById("menu-container");
+const slideContainer = document.getElementById("menu-slide");
 const descriptionElem = document.getElementById("menu-description");
 const popup = document.getElementById("popup");
 const popupImg = document.getElementById("popup-img");
@@ -72,43 +72,129 @@ const popupDescription = document.getElementById("popup-description");
 const closeBtn = document.getElementById("close-popup");
 const tabButtons = document.querySelectorAll(".tab-btn");
 
-function renderMenu(tabKey) {
-    container.innerHTML = "";
-    descriptionElem.textContent = tabDescriptions[tabKey] || "";
+function isMobile() {
+    return window.innerWidth <= 768;
+}
 
-    const basePath = imageBasePaths[tabKey] || "";
+function destroySlick() {
+    if ($(slideContainer).hasClass("slick-initialized")) {
+        $(slideContainer).slick("unslick");
+    }
+}
 
-    menuData[tabKey].forEach(item => {
-        const card = document.createElement("div");
-        card.className = "menu-card";
-
-        card.innerHTML = `
-      <img src="${basePath + item.image}" alt="${item.name}">
-      <div class="info">
-        <div class="name">${item.name}</div>
-        <div class="price">${item.price ? `￥${item.price.toLocaleString()}` : ""}</div>
-      </div>
-    `;
-
-        card.addEventListener("click", () => {
-            popupImg.src = basePath + item.image;
-            popupImg.alt = item.name;
-            popupName.textContent = item.name;
-            popupPrice.textContent = item.price ? `￥${item.price.toLocaleString()}` : "";
-            popupDescription.innerHTML = item.description || "説明はありません。";
-            popup.classList.remove("hidden");
-        });
-
-        container.appendChild(card);
+function initSlick() {
+    $(slideContainer).slick({
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 0,
+        speed: 6900,
+        infinite: true,
+        pauseOnHover: false,
+        pauseOnFocus: false,
+        cssEase: "linear",
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 769,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true
+                }
+            },
+            {
+                breakpoint: 426,
+                settings: {
+                    slidesToShow: 1.5,
+                    slidesToScroll: 1,
+                    infinite: true
+                }
+            }
+        ]
     });
 }
 
-renderMenu("okonomi");
+function renderMenu(tabKey) {
+    container.innerHTML = "";
+    slideContainer.innerHTML = "";
+    descriptionElem.textContent = tabDescriptions[tabKey] || "";
+
+    const basePath = imageBasePaths[tabKey] || "";
+    const items = menuData[tabKey];
+
+    if (isMobile()) {
+        container.style.display = "none";
+        slideContainer.style.display = "block";
+
+        items.forEach(item => {
+            const liHTML = `
+        <li class="menu-card">
+          <img src="${basePath + item.image}" alt="${item.name}">
+          <div class="info">
+            <div class="name">${item.name}</div>
+            <div class="price">${item.price ? `￥${item.price.toLocaleString()}` : ""}</div>
+          </div>
+        </li>
+      `;
+            slideContainer.insertAdjacentHTML("beforeend", liHTML);
+        });
+
+        destroySlick();
+        initSlick();
+
+        slideContainer.querySelectorAll(".menu-card").forEach((card, index) => {
+            card.addEventListener("click", () => {
+                const item = items[index];
+                popupImg.src = basePath + item.image;
+                popupImg.alt = item.name;
+                popupName.textContent = item.name;
+                popupPrice.textContent = item.price ? `￥${item.price.toLocaleString()}` : "";
+                popupDescription.innerHTML = item.description || "説明はありません。";
+                popup.classList.remove("hidden");
+            });
+        });
+    } else {
+        slideContainer.style.display = "none";
+        container.style.display = "grid";
+
+        items.forEach(item => {
+            const cardHTML = `
+        <div class="menu-card">
+          <img src="${basePath + item.image}" alt="${item.name}">
+          <div class="info">
+            <div class="name">${item.name}</div>
+            <div class="price">${item.price ? `￥${item.price.toLocaleString()}` : ""}</div>
+          </div>
+        </div>
+      `;
+            container.insertAdjacentHTML("beforeend", cardHTML);
+        });
+
+        destroySlick();
+
+        container.querySelectorAll(".menu-card").forEach((card, index) => {
+            card.addEventListener("click", () => {
+                const item = items[index];
+                popupImg.src = basePath + item.image;
+                popupImg.alt = item.name;
+                popupName.textContent = item.name;
+                popupPrice.textContent = item.price ? `￥${item.price.toLocaleString()}` : "";
+                popupDescription.innerHTML = item.description || "説明はありません。";
+                popup.classList.remove("hidden");
+            });
+        });
+    }
+}
 
 tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
         tabButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
+        container.innerHTML = "";
+        slideContainer.innerHTML = "";
+        descriptionElem.textContent = "";
+        destroySlick();
         const tabKey = btn.getAttribute("data-tab");
         renderMenu(tabKey);
     });
@@ -122,3 +208,17 @@ popup.addEventListener("mouseleave", () => {
     popup.classList.add("hidden");
 });
 
+window.addEventListener("resize", () => {
+    const activeBtn = document.querySelector(".tab-btn.active");
+    if (activeBtn) {
+        container.innerHTML = "";
+        slideContainer.innerHTML = "";
+        descriptionElem.textContent = "";
+        destroySlick();
+        const tabKey = activeBtn.getAttribute("data-tab");
+        renderMenu(tabKey);
+    }
+});
+
+renderMenu("okonomi");
+document.querySelector('.tab-btn[data-tab="okonomi"]').classList.add("active");

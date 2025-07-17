@@ -7,13 +7,17 @@
     <title>銀座 築乃鮨｜ホーム</title>
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="js/viewport.js" defer></script>
     <script src="js/slideshow.js" defer></script>
     <script src="js/load.js" defer></script>
     <script src="js/activemenu.js" defer></script>
     <script src="js/menu.js" defer></script>
     <script src="js/han.js" defer></script>
+    <script src="js/anime.js" defer></script>
 </head>
 
 <body>
@@ -26,19 +30,19 @@
     </div>
     <div id="overlay-slide"></div>
     <div id="main-content" style="display: none;">
-<header>
-    <div class="container">
-        <div class="logo">銀座 築乃鮨</div>
-        <nav class="header-menu">
-            <a href="#top">トップ</a>
-            <a href="#menu">お品書き</a>
-            <a href="#commitment">こだわり</a>
-            <a href="#access">アクセス</a>
-            <a href="#news">新着情報</a>
-            <a href="#contact">ご予約・お問い合わせ</a>
-        </nav>
-    </div>
-</header>
+        <header>
+            <div class="container">
+                <div class="logo">銀座 築乃鮨</div>
+                <nav class="header-menu">
+                    <a href="#top">トップ</a>
+                    <a href="#menu">お品書き</a>
+                    <a href="#commitment">こだわり</a>
+                    <a href="#access">アクセス</a>
+                    <a href="#news">新着情報</a>
+                    <a href="#contact">ご予約・お問い合わせ</a>
+                </nav>
+            </div>
+        </header>
 
 
 
@@ -77,12 +81,15 @@
                     伝統と革新が息づく、銀座の落ち着いた空間で、心に残る鮨のひとときをお届けします。</p>
             </div>
         </section>
-        <div class="bg1"></div>
+        <div class="bg1">
+            <div class="bg1-image"></div>
+        </div>
+
         <section id="menu">
             <div class="main-container">
-                <h1>お品書き</h1>
+                <h1 class=" fadeUpTrigger">お品書き</h1>
                 <div class="tabs">
-                    <button class="tab-btn active" data-tab="okonomi">お好み</button>
+                    <button class="tab-btn" data-tab="okonomi">お好み</button>
                     <button class="tab-btn" data-tab="set">セット</button>
                     <button class="tab-btn" data-tab="other">その他</button>
                     <button class="tab-btn" data-tab="delivery">出前</button>
@@ -90,6 +97,8 @@
                 <p id="menu-description" class="menu-desc"></p>
 
                 <div id="menu-container" class="menu-grid"></div>
+                <ul id="menu-slide" class="slider"></ul>
+
                 <div id="popup" class="popup hidden">
                     <div class="popup-content" id="popup-content">
                         <button id="close-popup" class="close-button">✕</button>
@@ -102,12 +111,13 @@
             </div>
         </section>
         <section id="commitment">
-            <h1>こだわり</h1>
+            <h1 class=" fadeUpTrigger">こだわり</h1>
             <div class="kodawari-block">
-                <div class="kodawari-image">
-                    <img src="img/kodawari1.jpg" alt="厳選された素材">
+                <div class="kodawari-image line">
+                    <img src="img/kodawari1.jpg" alt="厳選された素材" />
+                    <div class="vertical-lines"></div>
                 </div>
-                <div class="kodawari-text">
+                <div class="kodawari-text fadeUpTrigger">
                     <h3>素材へのこだわり</h3>
                     <p>
                         毎朝、熟練の目利きが市場に赴き、旬と質にこだわった魚介を厳選。
@@ -117,10 +127,11 @@
             </div>
 
             <div class="kodawari-block reverse">
-                <div class="kodawari-image">
+                <div class="kodawari-image line">
                     <img src="img/kodawari2.jpg" alt="職人の技">
+                    <div class="vertical-lines"></div>
                 </div>
-                <div class="kodawari-text">
+                <div class="kodawari-text fadeUpTrigger">
                     <h3>職人の技</h3>
                     <p>
                         一貫一貫に心を込めて。繊細な包丁捌きと絶妙な握りの力加減が、
@@ -130,10 +141,12 @@
             </div>
 
             <div class="kodawari-block">
-                <div class="kodawari-image">
+                <div class="kodawari-image line">
                     <img src="img/kodawari3.jpg" alt="空間への配慮">
+                    <div class="vertical-lines"></div>
                 </div>
-                <div class="kodawari-text">
+
+                <div class="kodawari-text fadeUpTrigger">
                     <h3>空間の美学</h3>
                     <p>
                         銀座の隠れ家のような佇まい。木の香りと和の設えが織りなす、
@@ -142,14 +155,15 @@
                 </div>
             </div>
         </section>
+        <div class="bg2">
+            <div class="bg2-image"></div>
+        </div>
 
-
-        <div class="bg2"></div>
         <section id="access">
             <div class="main-container">
-                <h1>アクセス</h1>
+                <h1 class=" fadeUpTrigger">アクセス</h1>
                 <div class="access-content">
-                    <div class="access-info">
+                    <div class="access-info fadeUpTrigger">
                         <h3>銀座 築乃鮨</h3>
                         <p>〒104-0061<br>
                             東京都中央区銀座4丁目12-15<br>
@@ -169,7 +183,7 @@
         </section>
         <section id="news">
             <div class="main-container">
-                <h1>新着情報</h1>
+                <h1 class=" fadeUpTrigger">新着情報</h1>
 
                 <div class="news-item">
                     <div class="news-thumb">
@@ -211,11 +225,9 @@
                 </div>
             </div>
         </section>
-
-
         <section id="contact">
             <div class="main-container">
-                <h1>ご予約・お問い合わせ</h1>
+                <h1 class=" fadeUpTrigger">ご予約・お問い合わせ</h1>
                 <p class="contact-text">
                     ご予約やお問い合わせは以下の方法で承っております。<br>
                     お電話、または予約ページ・お問い合わせページからお願いいたします。
@@ -228,8 +240,6 @@
                 </div>
             </div>
         </section>
-
-
         <footer id="footer">
             <div class="footer-area">
                 <div class="footer-info">

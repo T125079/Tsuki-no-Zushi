@@ -274,7 +274,8 @@ p {
   font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  width: 90vw;
   text-shadow:
     2px 2px 4px rgba(0, 0, 0, 0.7),
     0 0 5px rgba(255, 255, 255, 0.3);
@@ -289,8 +290,15 @@ section {
   margin: auto;
 }
 
+#top {
+  background-color: #f9f6f2;
+}
 
 /* メニューセクション */
+#menu {
+  background-color: #f9f6f2;
+}
+
 #menu h1 {
   text-align: center;
 }
@@ -382,6 +390,19 @@ section {
   font-size: 1rem;
   letter-spacing: 0.05em;
   font-weight: 600;
+}
+
+#menu-slide {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: block;
+}
+
+#menu-slide li {
+  width: auto;
+  margin: 0 8px;
+  box-sizing: border-box;
 }
 
 /* ポップアップ背景 */
@@ -502,6 +523,147 @@ section {
   justify-content: center;
   height: 100%;
   background-color: #f9f6f2;
+}
+
+.blur {
+  animation-name: blurAnime;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes blurAnime {
+  from {
+    filter: blur(10px);
+    transform: scale(1.02);
+    opacity: 0;
+  }
+
+  to {
+    filter: blur(0);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.kodawari-image.line {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.kodawari-image.line img {
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(1.02);
+  transition: none;
+}
+
+.kodawari-image.line.active img {
+  animation: blurAnime 1s forwards;
+  animation-delay: 1.2s;
+}
+
+.kodawari-image.line::before,
+.kodawari-image.line::after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 1px;
+  background: #333;
+  z-index: 10;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-play-state: paused;
+}
+
+.kodawari-image.line>.vertical-lines {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.kodawari-image.line>.vertical-lines::before,
+.kodawari-image.line>.vertical-lines::after {
+  position: absolute;
+  content: "";
+  width: 1px;
+  height: 0;
+  background: #333;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-play-state: paused;
+}
+
+.kodawari-image.line.active::before {
+  animation-name: lineAnime;
+  animation-delay: 0s;
+  animation-play-state: running;
+  top: 0;
+  left: 0;
+}
+
+.kodawari-image.line.active>.vertical-lines::after {
+  animation-name: lineAnime2;
+  animation-delay: 0.3s;
+  animation-play-state: running;
+  bottom: 0;
+  right: 0;
+}
+
+.kodawari-image.line.active::after {
+  animation-name: lineAnime;
+  animation-delay: 0.6s;
+  animation-play-state: running;
+  bottom: 0;
+  right: 0;
+}
+
+.kodawari-image.line.active>.vertical-lines::before {
+  animation-name: lineAnime2;
+  animation-delay: 0.9s;
+  animation-play-state: running;
+  top: 0;
+  left: 0;
+}
+
+@keyframes lineAnime {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes lineAnime2 {
+  from {
+    height: 0%;
+  }
+
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes blurAnime {
+  from {
+    filter: blur(10px);
+    transform: scale(1.02);
+    opacity: 0;
+  }
+
+  to {
+    filter: blur(0);
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 #access {
@@ -713,25 +875,39 @@ section {
   color: #ccc;
 }
 
-
-.bg1 {
-  position: relative;
-  background: url(../img/bg_01.jpg) no-repeat center;
-  background-size: cover;
-  background-attachment: fixed;
-  width: 100%;
-  height: 50vh;
-}
-
+.bg1,
 .bg2 {
   position: relative;
-  background: url(../img/bg_02.jpg) no-repeat center;
-  background-size: cover;
-  background-attachment: fixed;
   width: 100%;
   height: 50vh;
+  overflow: hidden;
 }
 
+.bg1-image,
+.bg2-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  display: none;
+}
+
+.bg1-image {
+  background-image: url(../img/bg_01.jpg);
+}
+
+.bg2-image {
+  background-image: url(../img/bg_02.jpg);
+}
+
+.bg-visible {
+  display: block;
+}
 
 @media (max-width: 767px) {
 
@@ -743,8 +919,20 @@ section {
     display: none;
   }
 
-  .main-container {
-    width: 90vw;
+  .caption {
+    font-size: 1.7rem;
+  }
+
+  #top {
+    padding: 30px 0px;
+  }
+
+  #menu-container {
+    display: none;
+  }
+
+  #menu-slide {
+    display: block;
   }
 
   .kodawari-block {
@@ -852,7 +1040,6 @@ section {
   }
 }
 
-/* PC以上: ハンバーガー非表示、ヘッダーメニュー表示 */
 @media (min-width: 768px) {
   .openbtn {
     display: none;
@@ -867,7 +1054,14 @@ section {
     padding: 2rem;
   }
 
-  /* トップセクション */
+  #menu-slide {
+    display: none;
+  }
+
+  #menu-container {
+    display: grid;
+  }
+
   #top {
     display: flex;
     justify-content: center;
