@@ -127,9 +127,9 @@ function renderMenu(tabKey) {
         container.style.display = "none";
         slideContainer.style.display = "block";
 
-        items.forEach(item => {
+        items.forEach((item, i) => {
             const liHTML = `
-        <li class="menu-card">
+        <li class="menu-card" data-index="${i}">
           <img src="${basePath + item.image}" alt="${item.name}">
           <div class="info">
             <div class="name">${item.name}</div>
@@ -143,8 +143,9 @@ function renderMenu(tabKey) {
         destroySlick();
         initSlick();
 
-        slideContainer.querySelectorAll(".menu-card").forEach((card, index) => {
+        slideContainer.querySelectorAll(".menu-card").forEach(card => {
             card.addEventListener("click", () => {
+                const index = parseInt(card.getAttribute("data-index"), 10);
                 const item = items[index];
                 popupImg.src = basePath + item.image;
                 popupImg.alt = item.name;
@@ -158,9 +159,9 @@ function renderMenu(tabKey) {
         slideContainer.style.display = "none";
         container.style.display = "grid";
 
-        items.forEach(item => {
+        items.forEach((item, i) => {
             const cardHTML = `
-        <div class="menu-card">
+        <div class="menu-card" data-index="${i}">
           <img src="${basePath + item.image}" alt="${item.name}">
           <div class="info">
             <div class="name">${item.name}</div>
@@ -173,8 +174,9 @@ function renderMenu(tabKey) {
 
         destroySlick();
 
-        container.querySelectorAll(".menu-card").forEach((card, index) => {
+        container.querySelectorAll(".menu-card").forEach(card => {
             card.addEventListener("click", () => {
+                const index = parseInt(card.getAttribute("data-index"), 10);
                 const item = items[index];
                 popupImg.src = basePath + item.image;
                 popupImg.alt = item.name;
@@ -187,6 +189,7 @@ function renderMenu(tabKey) {
     }
 }
 
+// タブ切り替えイベント
 tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
         tabButtons.forEach(b => b.classList.remove("active"));
@@ -200,14 +203,17 @@ tabButtons.forEach(btn => {
     });
 });
 
+// ポップアップ閉じる
 closeBtn.addEventListener("click", () => {
     popup.classList.add("hidden");
 });
 
+// マウスが外れたら非表示（任意で削除可）
 popup.addEventListener("mouseleave", () => {
     popup.classList.add("hidden");
 });
 
+// ウィンドウサイズ変更時の再描画
 window.addEventListener("resize", () => {
     const activeBtn = document.querySelector(".tab-btn.active");
     if (activeBtn) {
