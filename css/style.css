@@ -217,7 +217,7 @@ h1 {
   font-size: 32px;
 }
 
-h3 {
+h2 {
   color: #C99843;
   font-size: 24px;
 }
@@ -693,7 +693,7 @@ section {
   color: #333;
 }
 
-.access-info h3 {
+.access-info h2 {
   font-size: 1.4rem;
   color: #c59f5a;
   margin-bottom: 1rem;
@@ -963,7 +963,7 @@ section {
     object-fit: cover;
   }
 
-  .kodawari-text h3 {
+  .kodawari-text h2 {
     font-size: 1.4rem;
   }
 
